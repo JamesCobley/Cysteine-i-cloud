@@ -2,3 +2,6 @@ biopython
 matplotlib
 pandas
 scipy
+aiohttp
+xlswriter
+nest_acsyncio
