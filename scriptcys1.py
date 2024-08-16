@@ -5,49 +5,58 @@ Script to count the number of cysteine residues in protein sequences from a gzip
 Dependencies:
 - Biopython
 - Matplotlib (optional for plotting)
+-Pandas
 
 To install the dependencies, run:
 pip install biopython
 pip install matplotlib
+pip install pandas
 """
 
-from Bio import SeqIO
 import gzip
-import sys
+import pandas as pd
 
-def count_cysteines(filename):
-    """
-    Count cysteine residues in protein sequences from a gzipped FASTA file.
+# Define the file path to the gzipped FASTA file
+file_path = '/content/uniprotkb_human_AND_model_organism_9606_2024_05_08.fasta.gz'
 
-    Parameters:
-    filename (str): Path to the gzipped FASTA file.
+# Dictionary to count the number of proteins by the number of cysteine residues
+cysteine_counts = {}
 
-    Returns:
-    dict: A dictionary with the number of cysteines as keys and counts of proteins as values.
-    """
-    cysteine_counts = {}
-
-    try:
-        with gzip.open(filename, "rt") as handle:
-            for record in SeqIO.parse(handle, "fasta"):
-                num_cysteines = str(record.seq).count('C')
-                if num_cysteines in cysteine_counts:
-                    cysteine_counts[num_cysteines] += 1
+# Open and read the gzipped FASTA file in text mode
+with gzip.open(file_path, 'rt') as file:
+    protein_sequence = ''
+    for line in file:
+        if line.startswith('>'):
+            if protein_sequence:
+                # Count cysteine residues in the current protein sequence
+                count = protein_sequence.count('C')
+                if count in cysteine_counts:
+                    cysteine_counts[count] += 1
                 else:
-                    cysteine_counts[num_cysteines] = 1
-    except Exception as e:
-        print(f"An error occurred: {e}", file=sys.stderr)
-        return None
+                    cysteine_counts[count] = 1
+            protein_sequence = ''  # Reset the sequence for the next protein
+        else:
+            protein_sequence += line.strip()  # Accumulate the protein sequence
 
-    return cysteine_counts
+    # Handle the last protein sequence in the file
+    if protein_sequence:
+        count = protein_sequence.count('C')
+        if count in cysteine_counts:
+            cysteine_counts[count] += 1
+        else:
+            cysteine_counts[count] = 1
 
-if __name__ == "__main__":
-    # Modify this path to point to your actual file location
-    filename = '/content/uniprotkb_mouse_AND_model_organism_1009_2024_04_24.fasta.gz'
-    
-    counts = count_cysteines(filename)
+# Convert the cysteine counts dictionary to a DataFrame
+df = pd.DataFrame(list(cysteine_counts.items()), columns=['Cysteine Residues', 'Number of Proteins'])
 
-    if counts:
-        # Output the results sorted by the number of cysteines
-        for count in sorted(counts):
-            print(f"Proteins with {count} cysteine(s): {counts[count]}")
+# Sort the DataFrame by the number of cysteine residues
+df = df.sort_values(by='Cysteine Residues')
+
+# Define the path to save the Excel file
+excel_path = '/content/cysteine_counts.xlsx'
+
+# Save the DataFrame to an Excel file
+df.to_excel(excel_path, index=False)
+
+# Print confirmation message
+print(f"Excel file has been saved to {excel_path}")
