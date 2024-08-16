@@ -1,3 +1,4 @@
 biopython
 matplotlib
 pandas
+scipy
