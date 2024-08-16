@@ -5,3 +5,4 @@ scipy
 aiohttp
 xlswriter
 nest_acsyncio
+freesasa
