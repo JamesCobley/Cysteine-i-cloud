@@ -6,3 +6,4 @@ aiohttp
 xlswriter
 nest_acsyncio
 freesasa
+numpy
