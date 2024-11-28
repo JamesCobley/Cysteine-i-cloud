@@ -10,7 +10,7 @@ file_path = list(uploaded.keys())[0]
 df = pd.read_excel(file_path)
 
 # Helper functions
-def generate_k_states(max_r=100, q=0.5):
+def generate_k_states(max_r=100):
     """Generates a directory of k-states for all r in the range 1 to max_r."""
     k_state_directory = {}
     for r in range(1, max_r + 1):
@@ -80,7 +80,7 @@ for index, row in df.iterrows():
     redox_grades = k_data["redox_grades"]
 
     # Assign distribution profile
-    if index < 3000:  # Top 2500 most abundant proteins
+    if index < 100:  # Top 100 most abundant proteins
         profile = "Super Poisson (Reduced)"
     else:  # Randomly assign remaining proteins to one of the profiles
         profile = np.random.choice(distribution_profiles)
@@ -88,15 +88,14 @@ for index, row in df.iterrows():
     # Distribute molecules across k-states based on the profile
     copies_distribution = assign_distribution(r, copies, profile)
 
-    # Calculate MIN proteoforms: one unique proteoform per k_state accessed
-    min_proteoforms_accessed = sum(1 for c in copies_distribution if c > 0)
+    # Calculate MIN proteoforms: Count accessed k-states, capped at k + 1 and total copies
+    min_proteoforms_accessed = min(sum(1 for copies_in_k in copies_distribution if copies_in_k > 0), r + 1, int(copies))
 
-    # Calculate MAX proteoforms
-    max_proteoforms_per_k = [1] * (r + 1)  # Each k-state has at least one possible proteoform
-    max_proteoforms_accessed = sum(
-        min(max_p, c) for max_p, c in zip(max_proteoforms_per_k, copies_distribution)
+    # Calculate MAX proteoforms, capped by the total number of molecules
+    max_proteoforms_accessed = min(
+        sum(min(copies_in_k, binomial_count(r, k)) for k, copies_in_k in enumerate(copies_distribution)),
+        int(copies)
     )
-    max_proteoforms_accessed = min(max_proteoforms_accessed, 2**r)  # Cap at I-space
 
     # Weighted mean redox state
     weighted_redox_state = sum(c * r for c, r in zip(copies_distribution, redox_grades)) / sum(copies_distribution)
@@ -129,9 +128,10 @@ total_redox_state = (output_df["Redox state of the molecule"] * output_df["Copie
 output_df["Total proteome redox state"] = total_redox_state
 
 # Save results to an Excel file
-output_file_path = '/content/proteome_redox_analysis_ranked_top3000.xlsx'
+output_file_path = '/content/proteome_redox_analysis_fixed.xlsx'
 output_df.to_excel(output_file_path, index=False)
 
 # Provide download link
 print(f"Results saved to {output_file_path}")
 files.download(output_file_path)
+
