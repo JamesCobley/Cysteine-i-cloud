@@ -92,10 +92,14 @@ for index, row in df.iterrows():
     min_proteoforms_accessed = min(sum(1 for copies_in_k in copies_distribution if copies_in_k > 0), r + 1, int(copies))
 
     # Calculate MAX proteoforms, capped by the total number of molecules
-    max_proteoforms_accessed = min(
-        sum(min(copies_in_k, binomial_count(r, k)) for k, copies_in_k in enumerate(copies_distribution)),
-        int(copies)
+    max_proteoforms_accessed = sum(
+        min(copies_in_k, binomial_count(r, k)) for k, copies_in_k in enumerate(copies_distribution)
     )
+    max_proteoforms_accessed = min(max_proteoforms_accessed, int(copies))  # Cap at total molecules
+
+    # Ensure MAX Proteoforms is at least as large as MIN Proteoforms
+    if max_proteoforms_accessed < min_proteoforms_accessed:
+        max_proteoforms_accessed = min_proteoforms_accessed
 
     # Weighted mean redox state
     weighted_redox_state = sum(c * r for c, r in zip(copies_distribution, redox_grades)) / sum(copies_distribution)
@@ -134,4 +138,3 @@ output_df.to_excel(output_file_path, index=False)
 # Provide download link
 print(f"Results saved to {output_file_path}")
 files.download(output_file_path)
-
