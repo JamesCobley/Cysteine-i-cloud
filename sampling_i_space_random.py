@@ -63,10 +63,13 @@ distribution_profiles = [
     "Polarized"
 ]
 
+# Sort and rank proteins by "Copies per cell" in descending order
+df = df.sort_values(by="Copies per cell", ascending=False).reset_index(drop=True)
+
 # Process the dataset
 output_data = []
 
-for _, row in df.iterrows():
+for index, row in df.iterrows():
     r = int(row['Cysteines'])
     copies = float(row['Copies per cell'])
     if r > max_r or r == 0:
@@ -76,8 +79,11 @@ for _, row in df.iterrows():
     k_data = k_state_directory[r]
     redox_grades = k_data["redox_grades"]
 
-    # Randomly assign a distribution profile to the protein
-    profile = np.random.choice(distribution_profiles)
+    # Assign distribution profile
+    if index < 3000:  # Top 2500 most abundant proteins
+        profile = "Super Poisson (Reduced)"
+    else:  # Randomly assign remaining proteins to one of the profiles
+        profile = np.random.choice(distribution_profiles)
 
     # Distribute molecules across k-states based on the profile
     copies_distribution = assign_distribution(r, copies, profile)
@@ -123,7 +129,7 @@ total_redox_state = (output_df["Redox state of the molecule"] * output_df["Copie
 output_df["Total proteome redox state"] = total_redox_state
 
 # Save results to an Excel file
-output_file_path = '/content/proteome_redox_analysis_distributions.xlsx'
+output_file_path = '/content/proteome_redox_analysis_ranked_top3000.xlsx'
 output_df.to_excel(output_file_path, index=False)
 
 # Provide download link
