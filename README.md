@@ -24,6 +24,8 @@ H. sapiens	UniProt H. sapiens	n/a
 
 The human FASTA file has been uploaded to this repository.
 
+To calculate the PTM-space in n-2 dimensional and n-X dimensonal phase space the PTM_space_cal.py and PTM_depth_cal.py scripts were used.
+
 ## 3. Defining the Composition of the Human i Space
 The output from scriptcys1.py was used to create visualizations displayed in Figure 2. To identify the protein with the most cysteine residues, the script Cys_R_integer_find.py was used. Supplementary data was analyzed to create a table by sorting cysteine counts.
 
@@ -42,7 +44,11 @@ The molarity of PTEN in a HeLa cell was calculated and used to model the oxidati
 
 ## 8. Sampling the i-space
 
+To calculate the minimum and maximum number of unique cysteine redox proteoforms the sampling_i_space_random.py and sampling_i_space.py scripts were implemented.
+
 ## 9. Monte Carlo Simulations
+
+After elaborating PTP1B protoeforms in a matrix using the Cys_matrix.py script, Monte Carlo simulations were iterated on a virutal instance, using the google cloud computing platform, by implementing the CysRedox_MonteCarlo_1.py script. The analysis of the resultant outputs was automated using the RedoxMonteCarlo_stats.py script.
 
 ## Note
 
