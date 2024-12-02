@@ -3,7 +3,8 @@ matplotlib
 pandas
 scipy
 aiohttp
-xlswriter
+xlsxwriter
 nest_acsyncio
 freesasa
 numpy
+openpyxl
