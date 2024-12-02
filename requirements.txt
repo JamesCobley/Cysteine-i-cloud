@@ -8,3 +8,4 @@ nest_acsyncio
 freesasa
 numpy
 openpyxl
+google-cloud-storage
