@@ -22,7 +22,7 @@ X. tropicalis	UniProt X. tropicalis	n/a
 M. musculus	UniProt M. musculus	C57BL/6J
 H. sapiens	UniProt H. sapiens	n/a
 
-The human FASTA file has been uploaded to this repository.
+The [human FASTA file](https://github.com/JamesCobley/Cysteine-i-cloud/blob/main/uniprotkb_human_AND_model_organism_9606_2024_05_08.fasta.gz) that we used has been uploaded to this repository.
 
 To calculate the PTM-space in n-2 dimensional and n-X dimensonal phase space the PTM_space_cal.py and PTM_depth_cal.py scripts were used.
 
@@ -48,7 +48,7 @@ To calculate the minimum and maximum number of unique cysteine redox proteoforms
 
 ## 9. Monte Carlo Simulations
 
-After elaborating PTP1B protoeforms in a matrix using the Cys_matrix.py script, Monte Carlo simulations were iterated on a virutal instance, using the google cloud computing platform, by implementing the CysRedox_MonteCarlo_1.py script. The analysis of the resultant outputs was automated using the RedoxMonteCarlo_stats.py script.
+After elaborating PTP1B protoeforms in a matrix using the Cys_matrix.py script, Monte Carlo simulations were iterated on a virutal instance, using the [google cloud computing platform](https://cloud.google.com/?hl=en), by implementing the CysRedox_MonteCarlo_1.py script. The analysis of the resultant outputs was automated using the RedoxMonteCarlo_stats.py script.
 
 ## Note
 
