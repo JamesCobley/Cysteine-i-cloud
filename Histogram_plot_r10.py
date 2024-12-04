@@ -54,9 +54,9 @@ def plot_combined_distributions(distributions, total_molecules, R):
 
         # Plot each distribution
         ax = axes[i]
-        ax.bar(k_values, molecules, color="skyblue", edgecolor="black")
+        ax.bar(k_values, molecules, color="black", edgecolor="black")
         ax.set_title(f"{dist} Distribution\nAggregate Redox State: {mean_redox_state:.2f}%", fontsize=12)
-        ax.set_xlabel("k-grades (% Oxidized)")
+        ax.set_xlabel("k-state")
         ax.set_ylabel("Number of Molecules")
         ax.set_xticks(k_values)
         ax.grid(axis="y", linestyle="--", alpha=0.7)
