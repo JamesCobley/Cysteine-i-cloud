@@ -53,6 +53,7 @@ After elaborating PTP1B protoeforms in a matrix using the Cys_matrix.py script, 
 ## Note
 
 Scripts under section 4, 6 and 7 now only apply to the [preprint](https://www.biorxiv.org/content/10.1101/2024.09.18.613618v1.abstract). 
+The scripts used to generate the the figures in the manuscript are also provided where appropriate.
 
 ## How to use
 
