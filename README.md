@@ -60,6 +60,8 @@ The scripts used to generate the the figures in the manuscript are also provided
 Clone the repository: git clone https://github.com/JamesCobley/Cysteine-i-cloud.git
 Install dependencies pip install -r requirements.txt
 
+The scripts are optimised for goolge [Colab](https://colab.google/) implementation but they can be adapted for other environments. 
+
 ## Contact
 
 For any questions and inquiries, please contact James Cobley (j_cobley@yahoo.com) 
