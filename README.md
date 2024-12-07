@@ -2,7 +2,7 @@
 
 ## Overview
 
-This repository provides code for analyzing cysteine redox proteoforms using Python. The analyses include calculating the theoretical "i space", generating heatmaps, and defining various aspects of the redox proteoforms based on [UniProt](https://www.uniprot.org/) reference proteomes.
+This repository provides code for analyzing cysteine redox proteoforms using [Python](https://www.python.org/). The analyses include calculating the theoretical "i space", generating heatmaps, and defining various aspects of the redox proteoforms based on [UniProt](https://www.uniprot.org/) reference proteomes.
 
 ## 1. Coding Environment and Repository
 
