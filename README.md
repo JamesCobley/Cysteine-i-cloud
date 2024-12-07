@@ -6,7 +6,7 @@ This repository provides code for analyzing cysteine redox proteoforms using Pyt
 
 ## 1. Coding Environment and Repository
 
-All computational analyses were performed using Python in a Google Colaboratory (Colab) environment, which provides an interactive workspace for executing Python code. The primary libraries used include BioPython, Pandas, Numpy, and Scipy. The complete source code is available in our GitHub repository: [Cysteine-i-cloud](https://github.com/JamesCobley/Cysteine-i-cloud). The code is freely available under the MIT license, allowing for broad use and modification.
+All computational analyses were performed using Python in a Google Colaboratory ([Colab](https://colab.google/)) environment, which provides an interactive workspace for executing Python code. The primary libraries used include BioPython, Pandas, Numpy, and Scipy. The complete source code is available in our GitHub repository: [Cysteine-i-cloud](https://github.com/JamesCobley/Cysteine-i-cloud). The code is freely available under the MIT license, allowing for broad use and modification.
 
 ## 2. Calculating the Theoretical i Space of Reference Proteomes
 To calculate the theoretical i space, reference proteomes were downloaded from UniProt as gzipped FASTA files. These files were uploaded onto a Colab workspace where the script scriptcys1.py was used to process the data. 
